@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>This is the Home Page</h1>
-</body>
-</html>
+<!-- Here we inherit from the base template -->
+{% extends 'blog/base.html' %}
+<!-- here we overwrite the block -->
+{% block content %}
+<!-- create a code block for a for loop-->
+    {% for post in posts %}
+    <!-- To accesss a variable use a double {} -->
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted }}</small>
+          </div>
+          <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+    {% endfor %}
+<!-- We always need to end for loop (or if etc) -->
+<!-- You can only use endblock as well instead of endblock content -->
+{% endblock content %}
