@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm
 # Create your views here.
 
@@ -15,8 +16,13 @@ def register(request):
             username = form.cleaned_data.get('username')
             # flash message send sone time alert to the template
             messages.success(request, f'Account created for {username}!')
-            return redirect('blog-home')
+            return redirect('login')
     # else, we will simply display a blank form
     else:
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
+
+# we restrict the profile page to logged in users only
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')

@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from .models import Post
 
 # Create your views here.
+# logic is handeled here
+
 
 # data to be passed in the template
-
 def home(request):
     # we put our data into a dictionary
     # the key here is what is going to be accessible in our templates
