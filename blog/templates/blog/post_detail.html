@@ -1,0 +1,28 @@
+<!-- Here we inherit from the base template -->
+{% extends 'blog/base.html' %}
+<!-- here we overwrite the block -->
+{% block content %}
+    <!-- To accesss a variable use a double {} -->
+    <article class="media content-section">
+        <!-- change post to object everywhere (following conventions of the class based view -->
+        <!-- can be kept as post but then we will have to update the attribute in the view -->
+        <img class="rounded-circle article-img" src="{{object.author.profile.image.url}}"> 
+        <div class="media-body">
+            <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <!-- To apply a filter to data use | -->
+            <small class="text-muted">{{ object.date_posted | date:"F d, Y"}}</small>
+                <div>
+                    {% if object.author == user %}
+                    <a class="btn btn-secondary btn-sm my-1" href="{% url 'post-update' object.id%}">Update</a>
+                    <a class="btn btn-danger btn-sm my-1" href="{% url 'post-delete' object.id%}">Delete</a>
+                {% endif %}
+                </div>
+            </div>
+            <h2 class="article-title">{{ object.title }}</h2>
+            <p class="article-content">{{ object.content }}</p>
+        </div>
+    </article>
+    <!-- We always need to end for loop (or if etc) -->
+    <!-- You can only use endblock as well instead of endblock content -->
+{% endblock content %}
