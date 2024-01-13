@@ -2,6 +2,7 @@
 {% extends 'blog/base.html' %}
 <!-- here we overwrite the block -->
 {% block content %}
+    <h1 class="mb-3">Posts by {{ view.kwargs.username }} ({{page_obj.paginator.count}})</h1>
 <!-- create a code block for a for loop-->
     {% for post in posts %}
     <!-- To accesss a variable use a double {} -->
@@ -9,7 +10,7 @@
       <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}">
         <div class="media-body">
           <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-post' post.author.username %}">{{ post.author }}</a>
+            <a class="mr-2" href="{%url 'user-post' post.author.username%}">{{ post.author }}</a>
             <!-- To apply a filter to data use | -->
             <small class="text-muted">{{ post.date_posted | date:"F d, Y"}}</small>
           </div>
